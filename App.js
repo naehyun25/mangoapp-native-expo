@@ -9,17 +9,21 @@ export default function App() {
       <Text>Product😈</Text>
       <View style={styles.productCard}>
         <View>
-          <Image source ={AccImg1} style={styles.productImage}/>
+          <Image source ={AccImg1} style={styles.productImage}
+          resizeMode={'contain'}
+// 기본 이미지 태그에 제공되는 props
+/>
         </View>
         <View style={styles.productContent}>
-          <Text>하네스</Text>
-          <Text>50000원</Text>
+          <Text style={styles.productName}>하네스</Text>
+          <Text style={styles.productPrice}>50000원</Text>
         </View>
-        <View style={styles.productSeller}>
-          <Image source={Avatar} style = {styles.Avatar}
-          />
-          <Text>도기멍</Text>
-          <Text>1분전</Text>
+        <View style={styles.productFooter}>
+          <View style={styles.productSeller}>
+            <Image source={Avatar} style = {styles.Avatar}/>
+            <Text style={styles.productSellerName}>도기멍</Text>
+          </View>
+          <Text style={styles.productDate}>1분전</Text>
         </View>
       </View>
     </View>
@@ -48,6 +52,13 @@ const styles = StyleSheet.create({
   productContent:{
     padding : 8,
   },
+  productFooter: {
+    flexDirection:"row",
+    justifyContent : "space-between",
+    alignItems : "center",
+    marginTop:12,
+    padding:8,
+  },
   productSeller:{
     flexDirection:"row",
     alignItems:"center",
@@ -55,6 +66,20 @@ const styles = StyleSheet.create({
   Avatar:{
       width:24,
       height:24,
+  },
+  productName : {
+    fontSize:16,
+  },
+  productPrice : {
+    fontSize:18,
+    fontWeight:600,
+    marginTop:8,
+  },
+  productSellerName : {
+    fontSize:16,
+  },
+  productDate : {
+    fontSize:16,
   },
 
 });
