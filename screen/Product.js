@@ -13,7 +13,6 @@ const Product = (props) => {
 			.get(`${API_URL}/products/${id}`)
 			.then((result) => {
 				setProduct(result.data.product);
-                console.log("di",result)
 			})
 			.catch((error) => {
 				console.error(error);
@@ -23,6 +22,13 @@ const Product = (props) => {
         return <ActivityIndicator/>
         //경로 틀리면 스피너가 돌아요
     }
+
+    const onPressButton=() => {
+        if(product.soldout !==1){
+        Alert.alert('구매가 완료되었습니다.')
+        }
+    };
+
     return(
         <View Style={styles.container}>
         <ScrollView>
@@ -40,9 +46,15 @@ const Product = (props) => {
                     <Text style={styles.productPrice}>{product.price}</Text>
                     <Text style={styles.productDate}>상품등록일:{dayjs(product.createdAt).format("YYYY년 MM월 DD일")}</Text>
                     <Text style={styles.productDesc}>{product.description}</Text>
-                
             </View>
         </ScrollView>
+        {/* scrollView 안에있으면 스크롤에 따라 같이 넘어간다.
+        바깥쪽에 요소 두면 고정됨 */}
+        <TouchableOpacity onPress={onPressButton}>
+            <View style={product.soldout===1 ? styles.purchaseDisabled : styles.purchaseBtn}>
+                <Text style={styles.purchaseText}>{product.soldout===1 ? "품절" : "구매하기"}</Text>
+            </View>
+        </TouchableOpacity>
         </View>
     )
 };
@@ -97,6 +109,30 @@ const styles = StyleSheet.create({
         marginTop:4,
         color:"#666"
     },
+    purchaseBtn:{
+        position: "absolute",
+        bottom:0,
+        left:0,
+        right:0,
+        backgroundColor:"rgb(255,90,88)",
+        height:60,
+        alignItems:"center",
+        justifyContent: "center",
+    },
+    purchaseText:{
+        color:"white",
+        fontSize:24,
+    },
+    purchaseDisabled:{
+        position: "absolute",
+        bottom:0,
+        left:0,
+        right:0,
+        backgroundColor:"gray",
+        height:60,
+        alignItems:"center",
+        justifyContent: "center",
+    }
 
 })
 
